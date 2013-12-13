@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+  <head>
+    <title>RatPack - A Sinatra Boilerplate</title>
+    <link href="public/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link href="public/css/bootstrap-responsive.min.css" type="text/css" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="public/css/custom.css" type="text/css" rel="stylesheet"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script src="public/js/bootstrap.min.js"></script>
+  </head>
+  <body data-spy="scroll" data-target=".navbar">
+    <div class="container-fluid">
+      <div class="background"></div>
+      <!-- NAV -->
+      <div class="navbar navbar-fixed-top navbar-inverse">
+        <div class="navbar-inner">
+          <div class="container">
+ 
+          <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <!-- Everything you want hidden at 940px or less, place within here -->
+            <div class="nav-collapse collapse">
+          <!-- .nav, .navbar-search, .navbar-form, etc -->
+            <ul class="nav pull-right">
+              <li><a href="#upandrunning">Up and Running</a></li>
+              <li><a href="#pack">The Pack</a></li>
+              <li><a href="#gemfile">Gemfile</a></li>
+              <li><a href="#apporg">App Structure and Org</a></li>
+              <li><a href="#database">Database</a></li>
+              <li><a href="#routes">Routes, Helpers, and Views</a></li>
+              <li><a href="#contact">Contact</a></li>
+              </ul>
+            </div>
+ 
+          </div>
+        </div>
+      </div>
+      <a id="github" href="https://github.com/ashleygwilliams/ratpack"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub"></a>
+      <h1>RAT PACK</h1>
+      <div class="row-fluid">
+        <div id="tagline" class="span5">
+          <h2>a simple <a href="#">boilerplate</a> for creating production-ready <a href="http://sinatrarb.com" _target="new">sinatra apps</a> that use activerecord, sqlite, and twitter bootstrap</h2>
+        </div>
+        <div class="content span7">
+          <section id="upandrunning">
+            <h3>Get up and Running</h3>
+            <ol>
+              <li>Fork and clone this repo.</li>
+              <li>Run <pre>bundle install</pre>.</li>
+              <li>Start a local server with <pre>shotgun</pre>.</li>
+              <li>Start a console with <pre>tux</pre>.</li>
+              <li>Visit <pre>localhost:9393</pre> in your browser.</li>
+            </ol>
+          </section>
+          <section id="pack">
+            <h3>The Pack</h3>
+            <script src="https://gist.github.com/ashleygwilliams/5929791.js"></script>
+          </section>
+          <section id="gemfile">
+            <h3>Gemfile</h3>
+            <script src="https://gist.github.com/ashleygwilliams/5929805.js"></script>
+          </section>
+          <section id="apporg">
+            <h3>App Structure and Organization</h3>
+            <p>Sinatra apps can be built a bunch of different ways. This is my way. I think it's pretty good.</p>
+            <ul>
+              <li>
+                Your app is wrapped in a class called <pre>App</pre> that extends <pre>Sinatra::Application</pre>. It is wrapped in a module that you should name with your project name.
+                <script src="https://gist.github.com/ashleygwilliams/5924622.js"></script>
+              </li>
+              <li>
+                Sinatra runs on Rack! So we have a <pre>config.ru</pre> file. All we need to do in there is require our <pre>app.rb</pre> file and then run it:
+                <script src="https://gist.github.com/ashleygwilliams/5924661.js"></script>
+              </li>
+              <li> 
+                To get this running, we'll need to use the <pre>sinatra</pre> gem. This, and all of your Gemfiles are required in your app using Bundler at the very top of your <pre>app.rb</pre>:
+                <script src="https://gist.github.com/ashleygwilliams/5924575.js"></script>
+              </li>
+              <li>
+                Last, but not least, let's configure a <pre>public</pre> folder for all our static assets (i.e. things that don't need to be compiled or rendered, like pictures and css.) We'll also define a <pre>:root</pre>. This goes inside our <pre>App</pre> class definition in the <pre>app.rb</pre> file.
+                <script src="https://gist.github.com/ashleygwilliams/5924677.js"></script>
+              </li>
+          </section>
+          <section id="database">
+            <h3>The Database!</h3>
+            <p>Hell yes you can use ActiveRecord, even if you aren't in Rails. The structure Rat Pack provides is explained below. If you want more info on how to properly implement RESTful resources with AR in Sinatra, czech out <a href="http://danneu.com/posts/15-a-simple-blog-with-sinatra-and-active-record-some-useful-tools/" _target="new">this awesome tutorial.</a></p>
+            <ul>
+              <li>
+                Your sqlite database is made with the code below. Maybe rename <pre>database.db</pre> to something more related to your project.
+                <script src="https://gist.github.com/ashleygwilliams/5924746.js"></script>
+              </li>
+              <li>
+                All of your models in the <pre>lib</pre> directory are required in your app using this code:
+                <script src="https://gist.github.com/ashleygwilliams/5924612.js"></script>
+              </li>
+              <li>
+                Since we are using ActiveRecord as our ORM, your models should extend <pre>ActiveRecord::Base</pre> like this:
+                <script src="https://gist.github.com/ashleygwilliams/5924761.js"></script>
+              </li>
+            </ul>
+          </section>
+           <section id="routes">
+            <h3>Routes, Helpers, and Views</h3>
+            <ul>
+              <li>If you're used to Rails, it's worth noting that Sinatra collapses routes controllers into the same blocks that exist inside our <pre>App</pre> class in <pre>app.rb</pre>. The Pack contains one as an example:
+              <script src="https://gist.github.com/ashleygwilliams/5938467.js"></script>
+              </li>
+              <li>Sinatra allows you to use layouts, and by default will use the <pre>layout.erb</pre> file in the <pre>views</pre> folder. The one the Pack contains is shown below:
+              <script src="https://gist.github.com/ashleygwilliams/5938472.js"></script>
+              Note that whatever view you render will be inserted into the layout where <pre><%= yield %></pre> is.
+              </li>
+              <li>Lastly, Sinatra doesn't come with the ability to support partials out of the box. Therefore, the pack comes with a helper to provide that functionality:
+              <script src="https://gist.github.com/ashleygwilliams/5938476.js"></script>
+              </li>
+            </ul>
+          </section>
+           <section id="contact">
+            <h3>Contact</h3>
+            <p><a href="http://twitter.com/ag_dubs"><pre>Ashley Williams</pre></a> made Rat Pack for her students at the <a href="http://flatironschool.com"><pre>Flatiron School</pre></a>.</p>
+            <p>If you find an issue, please report it on <a href="http://github.com/ashleygwilliams/ratpack">github</a>.
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

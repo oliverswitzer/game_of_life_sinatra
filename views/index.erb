@@ -1,0 +1,9 @@
+
+<div id="container">
+<%@graph.each do |x|%>
+	<div class="break"><br></div>
+	<%x.each do |cell|%>
+		<div class="cell" style="<%=cell.alive? ? @green : @black %>"></div>
+	<%end%>
+<%end%>
+</div>

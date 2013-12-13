@@ -1,0 +1,44 @@
+
+
+/*.cell {
+	width: 20px;
+	height: 20px;
+	background-color: white;
+	border: 1px solid black;
+	position: absolute;
+}*/
+
+body {
+	background-color: black;
+}
+
+#container {
+	display: inline-block;
+	width: 400;
+	height: 400;
+	margin: 0 auto;
+}
+
+/*.cell {
+    background-color:green;
+    border: 1px solid black;
+    float: left;
+    width: 20px;
+    height:20px;
+    top: 20;
+    left: 20;
+}*/
+
+.cell {
+    background-color: green;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    top: 20;
+    left: 20;
+}
+
+
+.break {
+margin: 2px    
+}
