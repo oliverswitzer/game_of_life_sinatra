@@ -8,17 +8,19 @@
   </head>
   <body>
 
-  	<a href="/start"><h1>Home</h1></a>
+  	<a href="/start" style="position: absolute"><h4>Home</h4></a>
+    <br>
+  	<h4 style="position: absolute">Tick Count: <%=@world.tick_count%></h4>
 
-  	<h2>Tick Count: <%=@world.tick_count%></h2>
-	<div id="container" style="width: <%=(@world.size_y*20)+250%>; height: <%=(@world.size_x*20)+150%>">
-	<%@graph.each do |x|%>
-		<br>
-		<%x.each do |cell|%>
-			<div class="cell" style="<%=cell.alive? ? @green : @black %>"></div>
-		<%end%>
-	<%end%>
-	</div>
+  	<div id="container">
+  	<%@graph.each do |x|%>
+  		<br>
+  		<%x.each do |cell|%>
+  			<div class="cell" style="<%=cell.alive? ? @green : @black %>"></div>
+  		<%end%>
+  	<%end%>
+  	</div>
   </body>
 </html>
 
+<!-- style="width: <%=(@world.size_y*20)+250%>; height: <%=(@world.size_x*20)+150%>" -->

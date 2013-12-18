@@ -7,7 +7,7 @@ end
 
 module Name
   class App < Sinatra::Application
-    @@game = Game.new(25, 57)
+    @@game = Game.new(18, 18)
 
     get '/' do
       @pause = false
@@ -18,9 +18,9 @@ module Name
       @green = "background-color: green"
       @black = "background-color: blue"
 
-      if @world.tick_count == 10
-        @pause = true
-      end
+      # if @world.tick_count == 20
+      #   @pause = true
+      # end
       
       erb :index
     end
