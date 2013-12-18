@@ -9,7 +9,7 @@
 		<title>Game of Life</title>
 	</head>
 	<body>
-	<div id="container">
+	<div id="container" style="width: <%=(@world.size_y*20)+150%>; height: <%=(@world.size_x*20)+150%>">
 		<form action="/play" method="POST">
 		<label for="graph_point">Pick points on the graph</label>
 			<% i = 0 %>

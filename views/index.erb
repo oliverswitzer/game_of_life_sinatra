@@ -3,11 +3,15 @@
 <html lang="en">
   <head>
     <link href="css/stylesheet.css" type="text/css" rel="stylesheet"/>
-    <meta http-equiv="refresh" content="0.1" >
+    <%=@pause ? " " : '<meta http-equiv="refresh" content="0.1" >'%>
     <title>Game of Life</title>
   </head>
   <body>
-	<div id="container">
+
+  	<a href="/start"><h1>Home</h1></a>
+
+  	<h2>Tick Count: <%=@world.tick_count%></h2>
+	<div id="container" style="width: <%=(@world.size_y*20)+250%>; height: <%=(@world.size_x*20)+150%>">
 	<%@graph.each do |x|%>
 		<br>
 		<%x.each do |cell|%>

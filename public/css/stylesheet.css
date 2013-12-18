@@ -10,13 +10,15 @@
 
 body {
 	background-color: black;
+    color: white;
 }
 
 #container {
-	display: inline-block;
-	width: 500;
-	height: 500;
-	margin: 0 auto;
+/*    overflow: hidden;
+*/	display: inline-block;
+	/*width: 500;*/
+/*	height: 500;
+*/	margin: 0 auto;
 }
 
 /*.cell {

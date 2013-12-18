@@ -2,19 +2,27 @@ require_relative 'cell'
 
 class World
 
-  attr_accessor :cells, :size, :graph
+  attr_accessor :cells, :size_x, :size_y, :graph, :tick_count
 
-  def initialize(size)
-    @size = size
+  def initialize(size_x, size_y)
+    @tick_count = 1
+    @size_x = size_x
+    @size_y = size_y
     @cells = []
     @graph = []
     populate
   end
 
+  def apocalypse
+    cells.each do |cell|
+      cell.alive = false
+    end
+  end
+
   def populate
-    size.times do |x|
+    size_x.times do |x|
       @graph << []
-      size.times do |y|
+      size_y.times do |y|
         @graph[x] << Cell.new(self, x, y)
       end
     end
@@ -43,6 +51,7 @@ class World
     end
     dead_array.each { |cell| cell.die! }
     alive_array.each { |cell| cell.birth!}
+    @tick_count += 1
   end
 end
 

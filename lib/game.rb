@@ -6,8 +6,8 @@ class Game
 
   attr_accessor :world, :viz_app
 
-  def initialize size=20
-    @world = World.new(size)
+  def initialize size_x=20, size_y=20
+    @world = World.new(size_x, size_y)
   end
   
   def print_world
@@ -97,7 +97,7 @@ class Game
   end
 
   def randomly_populate
-    rand(1..world.size**2).times do 
+    rand(1..world.size_x**2).times do 
       world.birth_cell(rand(0..world.size-1), rand(0..world.size-1))
     end
   end
