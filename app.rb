@@ -8,6 +8,7 @@ end
 module Name
   class App < Sinatra::Application
     @@game = Game.new(18, 18)
+    @@game.randomly_populate
 
     get '/' do
       @pause = false
@@ -15,14 +16,31 @@ module Name
       @local_game = @@game
       @world = @local_game.world
       @graph = @world.graph
-      @green = "background-color: green"
-      @black = "background-color: blue"
+      @alive = "background-color: green"
+      @dead = "background-color: blue"
 
-      # if @world.tick_count == 20
-      #   @pause = true
-      # end
+
+      if @world.tick_count == 100
+        @pause = true
+      end
       
       erb :index
+    end
+
+    helpers do
+      def color_cell(cell)
+        if cell.alive?
+          if cell.ownership == 1
+            "background-color: blue"
+          elsif cell.ownership == 2
+            "background-color: red"
+          else  #if ownership == 0, which should NEVER happen... EVER.
+            "background-color: white"
+          end
+        else
+          "background-color: black"
+        end
+      end
     end
 
 

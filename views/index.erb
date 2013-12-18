@@ -16,7 +16,7 @@
   	<%@graph.each do |x|%>
   		<br>
   		<%x.each do |cell|%>
-  			<div class="cell" style="<%=cell.alive? ? @green : @black %>"></div>
+  			<div class="cell" style="<%=color_cell(cell)%>"></div>
   		<%end%>
   	<%end%>
   	</div>

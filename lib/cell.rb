@@ -3,14 +3,16 @@ require_relative 'world'
 
 class Cell
 
-  attr_accessor :x, :y, :world, :alive 
+  attr_accessor :x, :y, :world, :alive, :ownership, :future_ownership
 
-  def initialize(world, x=0,y=0)
+  def initialize(world, x=0,y=0, ownership=0)
+    @future_ownership = nil
     @x = x
     @y = y
     @world = world
     @alive = false
     world.cells << self
+    @ownership = ownership   #dead cells are owned by player 0. 
   end
 
   def neighbors
