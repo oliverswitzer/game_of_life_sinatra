@@ -29,7 +29,10 @@ module Name
     get '/start' do
       #will contain the form 
       @world = @@game.world
-      @world.apocalypse
+
+      @@game.world.apocalypse
+      @@game.world.tick_count = 0
+      
       @graph = @world.graph
       erb :start
     end
