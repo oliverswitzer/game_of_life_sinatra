@@ -14,8 +14,8 @@ body {
 
 #container {
 	display: inline-block;
-	width: 400;
-	height: 400;
+	width: 500;
+	height: 500;
 	margin: 0 auto;
 }
 
@@ -41,4 +41,8 @@ body {
 
 .break {
 margin: 2px    
+}
+
+input[type=checkbox] {
+    display: inline-block;
 }

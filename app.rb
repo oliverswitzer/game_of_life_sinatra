@@ -7,8 +7,8 @@ end
 
 module Name
   class App < Sinatra::Application
-    @@game = Game.new
-    @@game.randomly_populate
+    @@game = Game.new(20)
+    @@game.pulsar
 
     get '/' do
       @@game.world.next_frame!
@@ -20,6 +20,22 @@ module Name
       
       erb :index
     end
+
+
+    get '/start' do
+      #will contain the form 
+      @graph = @@game.world.graph
+
+      erb :start
+    end
+
+    post '/play' do
+      #will be passed the params to tell which cells are to be started
+
+
+      erb :play
+    end
+
 
     #helpers
     # helpers do

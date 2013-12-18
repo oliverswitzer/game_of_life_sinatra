@@ -1,9 +1,20 @@
 
-<div id="container">
-<%@graph.each do |x|%>
-	<div class="break"><br></div>
-	<%x.each do |cell|%>
-		<div class="cell" style="<%=cell.alive? ? @green : @black %>"></div>
+
+<html lang="en">
+  <head>
+    <link href="css/stylesheet.css" type="text/css" rel="stylesheet"/>
+    <meta http-equiv="refresh" content="0.1" >
+    <title>Game of Life</title>
+  </head>
+  <body>
+	<div id="container">
+	<%@graph.each do |x|%>
+		<br>
+		<%x.each do |cell|%>
+			<div class="cell" style="<%=cell.alive? ? @green : @black %>"></div>
+		<%end%>
 	<%end%>
-<%end%>
-</div>
+	</div>
+  </body>
+</html>
+
