@@ -98,7 +98,7 @@ class Game
 
   def randomly_populate
     rand(1..world.size_x**2).times do 
-      world.birth_cell(rand(0..world.size_x-1), rand(0..world.size_x-1), rand(1..2))
+      world.birth_cell(rand(0..world.size_x-1), rand(0..world.size_y-1), rand(1..2))
     end
   end
 

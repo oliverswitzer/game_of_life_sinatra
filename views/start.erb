@@ -11,16 +11,22 @@
 	<body>
 	<div id="container">
 		<form action="/play" method="POST">
-		<label for="graph_point">Pick points on the graph</label>
-			<% i = 0 %>
-			<%@graph.each do |x|%>
+			<label for="player">Play as Player 1 (Red) or Player 2 (Blue)</label>
 				<br>
-				<%x.each do |cell|%>
-					<input type="checkbox" name="grid_<%=i%>" value="<%=[cell.x, cell.y]%>" id="graph_point">
-					<%i += 1%>
+				<input id="player" type="radio" name="player" value="1">Player 1 (Red)</input> 
+				<br>
+				<input id="player" type="radio" name="player" value="2">Player 2 (Blue)</input>
+				<br>
+			<label for="graph_point">Pick points on the graph</label>
+				<% i = 0 %>
+				<%@graph.each do |x|%>
+					<br>
+					<%x.each do |cell|%>
+						<input type="checkbox" name="grid_<%=i%>" value="<%=[cell.x, cell.y]%>" id="graph_point">
+						<%i += 1%>
+					<%end%>
 				<%end%>
-			<%end%>
-			<br>
+				<br>
 			<input type="submit" value="Submit"></input>
 		<form/>
 		</div>

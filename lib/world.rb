@@ -53,12 +53,17 @@ class World
     end
     player1_total = player1.count
     player2_total = player2.count
+    
 
     case (player1_total <=> player2_total)
-    when -1    #when -1, player1 wins
+    when 1    #when +1, player1 wins
       1
-    when 1    #when +1 player 2 wins
-      2
+      # puts "player1"
+      # puts "#{player1_total <=> player2_total}"
+    when -1    #when -1 player 2 wins
+      2 
+      # puts "player2"
+      # puts "#{player1_total <=> player2_total}"
     end
   end
 

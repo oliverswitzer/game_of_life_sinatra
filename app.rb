@@ -1,24 +1,25 @@
 require 'bundler'
 Bundler.require
 
+
 Dir.glob('./lib/*.rb') do |model|
   require model
 end
 
+
+
 module Name
   class App < Sinatra::Application
-    @@game = Game.new(18, 18)
-    @@game.randomly_populate
+    @@game = Game.new(18, 30)
+    # @@game.randomly_populate
 
     get '/' do
       @pause = false
+      
       @@game.world.next_frame!
       @local_game = @@game
       @world = @local_game.world
       @graph = @world.graph
-      @alive = "background-color: green"
-      @dead = "background-color: blue"
-
 
       if @world.tick_count == 100
         @pause = true
@@ -30,10 +31,13 @@ module Name
     helpers do
       def color_cell(cell)
         if cell.alive?
+          
           if cell.ownership == 1
-            "background-color: blue"
-          elsif cell.ownership == 2
+            
             "background-color: red"
+          elsif cell.ownership == 2
+            
+            "background-color: blue"
           else  #if ownership == 0, which should NEVER happen... EVER.
             "background-color: white"
           end
@@ -58,18 +62,25 @@ module Name
     post '/play' do
       #will be passed the params to tell which cells are to be started
       # "[6, 14]"
+
       to_live = []
       params.values.each do |str_coordinate|
-        str_array = str_coordinate.gsub("[","").gsub("]", "").split(",")
-        int_coord = str_array.collect { |coord| coord.to_i }
-        to_live << int_coord
+        if str_coordinate[0] == "["
+          str_array = str_coordinate.gsub("[","").gsub("]", "").split(",")
+          int_coord = str_array.collect { |coord| coord.to_i }
+          to_live << int_coord
+          puts ""
+        end
       end
 
       @@game.world.cells.each do |cell|
         if to_live.include?([cell.x, cell.y])
           cell.alive = true
+          cell.ownership = params["player"].to_i
+          puts ""
         end
       end
+
 
       erb :play
     end
