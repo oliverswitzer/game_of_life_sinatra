@@ -3,12 +3,13 @@
 <html lang="en">
   <head>
     <link href="css/stylesheet.css" type="text/css" rel="stylesheet"/>
-    <%=@pause ? " " : '<meta http-equiv="refresh" content="0.1" >'%>
+    <%=check_pause%>  
     <title>Game of Life</title>
   </head>
   <body>
 
   	<a href="/start" style="position: absolute; right: 20px; top: 10px"><h4>Home</h4></a>
+    <a href="/pause" style="positon: absolute; right: 20px; top: 50px"><h4>Pause</h4></a>
     <br>
   	<h4 style="position: absolute; left: 20px; top: 10px">Tick Count: <%=@world.tick_count%></h4>
     <h1 style="position: absolute; left: 20px; top: 50px"><%=@game_over%><h1>

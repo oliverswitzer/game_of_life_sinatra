@@ -2,7 +2,7 @@ require_relative 'cell'
 
 class World
 
-  attr_accessor :cells, :size_x, :size_y, :graph, :tick_count
+  attr_accessor :cells, :size_x, :size_y, :graph, :tick_count, :new_cells_per_tick
 
   def initialize(size_x, size_y)
     @tick_count = 1
@@ -11,6 +11,7 @@ class World
     @cells = []
     @graph = []
     populate
+    @new_cells_per_tick = []
   end
 
   def apocalypse
@@ -67,6 +68,8 @@ class World
     end
   end
 
+
+
   def next_frame!
     dead_array = []
     alive_array = []
@@ -80,6 +83,8 @@ class World
         dead_array << cell
       end
     end
+
+    @new_cells_per_tick << alive_array.count
 
     dead_array.each do |cell| 
       cell.die!

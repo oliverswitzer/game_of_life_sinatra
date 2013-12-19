@@ -4,10 +4,11 @@ require_relative 'world'
 
 class Game
 
-  attr_accessor :world, :viz_app
+  attr_accessor :world, :viz_app, :pause
 
   def initialize size_x=20, size_y=20
     @world = World.new(size_x, size_y)
+    @pause = false
   end
   
   def print_world
@@ -20,6 +21,20 @@ class Game
           print " . "
         end
       end
+    end
+  end
+
+  def static?
+    if world.tick_count > 11
+      last_ten = world.new_cells_per_tick[-11..-1].collect { |tick_count| }
+      same_counts = last_ten.uniq
+      if same_counts.size == 1
+        true
+      else 
+        false
+      end
+    else
+      false
     end
   end
 
