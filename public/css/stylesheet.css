@@ -48,3 +48,7 @@ margin: 2px
 input[type=checkbox] {
     display: inline-block;
 }
+
+#hidden {
+    visibility: hidden;
+}

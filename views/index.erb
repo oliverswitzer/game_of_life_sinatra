@@ -1,25 +1,39 @@
-
-
 <html lang="en">
   <head>
     <link href="css/stylesheet.css" type="text/css" rel="stylesheet"/>
-    <%=check_pause%>  
     <title>Game of Life</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <%#= check_pause %>
+    <script>
+      $(document).ready(function() {
+        function loadNext() {
+          var hidden = $("#hidden").text();
+          if (hidden !== "pause") {
+            $('#container').load('/window?randval='+ Math.random(), function() {            
+                setTimeout(loadNext, 100);
+            });
+          }
+        }
+        loadNext();
+      });
+    </script>
   </head>
   <body>
-
-  	<a href="/start" style="position: absolute; right: 20px; top: 40px"><h4>Home</h4></a>
-    <a href="/pause" style="position: absolute; right: 20px; top: 70px"><h4>Pause</h4></a>
-  	<h4 style="position: absolute; left: 20px; top: 40px">Tick Count: <%=@world.tick_count%></h4>
-    <%=@game_over%>
-  	<div id="container">
-  	<%@graph.each do |x|%>
-  		<br>
-  		<%x.each do |cell|%>
-  			<div class="cell" style="<%=color_cell(cell)%>"></div>
-  		<%end%>
-  	<%end%>
-  	</div>
+    <div id="container">
+    	<a href="/start" style="position: absolute; right: 20px; top: 40px"><h4>Home</h4></a>
+      <a href="/pause" style="position: absolute; right: 20px; top: 70px"><h4>Pause</h4></a>
+    	<h4 style="position: absolute; left: 20px; top: 40px">Tick Count: <%=@world.tick_count%></h4>
+      <%=@game_over%>
+    	<div id="container">
+    	<%@graph.each do |x|%>
+    		<br>
+    		<%x.each do |cell|%>
+    			<div class="cell" style="<%=color_cell(cell)%>"></div>
+    		<%end%>
+    	<%end%>
+    	</div>
+      <div id="hidden"><%= @pause %></div>
+    </div>
   </body>
 </html>
 

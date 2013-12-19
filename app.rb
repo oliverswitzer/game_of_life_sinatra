@@ -12,10 +12,18 @@ module Name
   class App < Sinatra::Application
     @@game = Game.new(18, 30)
     @@game.pause = false
-    # @@game.randomly_populate
+    @@game.randomly_populate
 
     get '/' do
-      puts @@game.pause
+      @local_game = @@game
+      @world = @local_game.world
+      @graph = @world.graph
+      @game_over = ""
+      erb :index
+    end
+
+    get '/window' do
+      # puts @@game.pause
       @@game.world.next_frame!
       @local_game = @@game
       @world = @local_game.world
@@ -24,10 +32,12 @@ module Name
 
       if @@game.static?
         @@game.pause = true
+        @pause = "pause"
       end
 
       if @world.tick_count >= 100
         @@game.pause = true
+        @pause = "pause"
         p1_cells = []
         p2_cells = []
         @world.cells.each do |cell|   #count each players cells
@@ -51,7 +61,7 @@ module Name
         end
       end
       
-      erb :index
+      erb :window
     end
 
     helpers do
@@ -72,7 +82,32 @@ module Name
 
       def check_pause
         if @@game.pause == false 
-          "<meta http-equiv='refresh' content='0.1' >"
+          "<script>
+            $(document).ready(function() {
+              function loadNext() {
+                $('#container').load('/window?randval='+ Math.random(), function() {
+                  setTimeout(loadNext, 100);
+                });
+              }
+            loadNext();
+            });
+            </script>"
+          # "<meta http-equiv='refresh' content='0.1' >"
+        else
+          ""
+        end
+      end
+
+      def reload_once
+        if @reload == true
+          "<script>
+            window.onload = function() {
+                if(!window.location.hash) {
+                    window.location = window.location + '#loaded';
+                    window.location.reload();
+                }
+            }
+          </script>"
         else
           ""
         end
