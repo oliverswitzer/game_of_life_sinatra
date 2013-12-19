@@ -22,7 +22,7 @@ module Name
       @graph = @world.graph
       @game_over = ""
 
-      if @world.tick_count >= 20
+      if @world.tick_count >= 100
         @pause = true
         p1_cells = []
         p2_cells = []
