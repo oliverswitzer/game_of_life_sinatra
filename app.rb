@@ -11,7 +11,7 @@ end
 module Name
   class App < Sinatra::Application
     @@game = Game.new(18, 30)
-    @@game.randomly_populate
+    # @@game.randomly_populate
 
     get '/' do
       
@@ -41,11 +41,11 @@ module Name
           p2_count = p2_cells.count
           case (p1_count <=> p2_count)
           when 1
-            @game_over = "Player 1 wins! <a href='/start'>PLAY AGAIN</a>"
+            @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 1 wins! <a href='/start'>PLAY AGAIN</a></h1>"
           when -1
-            @game_over = "Player 2 wins! <a href='/start'>PLAY AGAIN</a>"
+            @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 2 wins! <a href='/start'>PLAY AGAIN</a></h1>"
           when 0
-            @game_over = "Both players have the same amount of cells--it's a tie! <a href='/start'>PLAY AGAIN</a>"
+            @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Both players have the same amount of cells--it's a tie! <a href='/start'>PLAY AGAIN</a></h1>"
           end
         end
       end
@@ -65,7 +65,7 @@ module Name
             "background-color: white"
           end
         else
-          "background-color: black"
+          "background-color: green"
         end
       end
 
