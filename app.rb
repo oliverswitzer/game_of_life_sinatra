@@ -20,9 +20,31 @@ module Name
       @local_game = @@game
       @world = @local_game.world
       @graph = @world.graph
+      @game_over = ""
 
-      if @world.tick_count == 100
+      if @world.tick_count >= 100
         @pause = true
+        p1_cells = []
+        p2_cells = []
+        @world.cells.each do |cell|   #count each players cells
+          if cell.ownership == 1 
+            p1_cells << cell
+          elsif cell.ownership == 2
+            p2_cells << cell
+          else
+            nil
+          end
+          p1_count = p1_cells.count
+          p2_count = p2_cells.count
+          case (p1_count <=> p2_count)
+          when 1
+            @game_over = "Player 1 wins!"
+          when -1
+            @game_over = "Player 2 wins!"
+          when 0
+            @game_over = "Both players have the same amount of cells--it's a tie!"
+          end
+        end
       end
       
       erb :index
