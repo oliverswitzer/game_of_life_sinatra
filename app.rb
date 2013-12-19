@@ -22,7 +22,7 @@ module Name
       @graph = @world.graph
       @game_over = ""
 
-      if @world.tick_count >= 100
+      if @world.tick_count >= 20
         @pause = true
         p1_cells = []
         p2_cells = []
@@ -38,11 +38,11 @@ module Name
           p2_count = p2_cells.count
           case (p1_count <=> p2_count)
           when 1
-            @game_over = "Player 1 wins!"
+            @game_over = "Player 1 wins! <a href='/start'>PLAY AGAIN</a>"
           when -1
-            @game_over = "Player 2 wins!"
+            @game_over = "Player 2 wins! <a href='/start'>PLAY AGAIN</a>"
           when 0
-            @game_over = "Both players have the same amount of cells--it's a tie!"
+            @game_over = "Both players have the same amount of cells--it's a tie! <a href='/start'>PLAY AGAIN</a>"
           end
         end
       end
