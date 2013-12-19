@@ -11,10 +11,10 @@ end
 module Name
   class App < Sinatra::Application
     @@game = Game.new(18, 30)
-    # @@game.randomly_populate
+    @@game.randomly_populate
 
     get '/' do
-    
+      
       @@game.world.next_frame!
       @local_game = @@game
       @world = @local_game.world

@@ -26,8 +26,9 @@ class Game
 
   def static?
     if world.tick_count > 11
-      last_ten = world.new_cells_per_tick[-11..-1].collect { |tick_count| }
+      last_ten = world.new_cells_per_tick[-11..-1]
       same_counts = last_ten.uniq
+      puts last_ten.inspect
       if same_counts.size == 1
         true
       else 
