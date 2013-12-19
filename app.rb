@@ -11,10 +11,11 @@ end
 module Name
   class App < Sinatra::Application
     @@game = Game.new(18, 30)
+    @@game.pause = false
     # @@game.randomly_populate
 
     get '/' do
-      
+      puts @@game.pause
       @@game.world.next_frame!
       @local_game = @@game
       @world = @local_game.world
@@ -65,7 +66,7 @@ module Name
             "background-color: white"
           end
         else
-          "background-color: green"
+          "background-color: black"
         end
       end
 
@@ -107,6 +108,7 @@ module Name
 
       @@game.world.apocalypse
       @@game.world.tick_count = 0
+      @@game.pause = false
       
       @graph = @world.graph
       erb :start
