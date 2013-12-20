@@ -12,7 +12,7 @@ module Name
   class App < Sinatra::Application
     @@game = Game.new(18, 30)
     @@game.pause = false
-    @@game.randomly_populate
+    # @@game.randomly_populate
 
     get '/' do
       @local_game = @@game
@@ -33,31 +33,20 @@ module Name
       if @@game.static?
         @@game.pause = true
         @pause = "pause"
+        @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Game over: your cells have settled in for the long run! <a href='/start'>PLAY AGAIN</a></h1>"
       end
 
       if @world.tick_count >= 100
         @@game.pause = true
         @pause = "pause"
-        p1_cells = []
-        p2_cells = []
-        @world.cells.each do |cell|   #count each players cells
-          if cell.ownership == 1 
-            p1_cells << cell
-          elsif cell.ownership == 2
-            p2_cells << cell
-          else
-            nil
-          end
-          p1_count = p1_cells.count
-          p2_count = p2_cells.count
-          case (p1_count <=> p2_count)
-          when 1
-            @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 1 wins! <a href='/start'>PLAY AGAIN</a></h1>"
-          when -1
-            @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 2 wins! <a href='/start'>PLAY AGAIN</a></h1>"
-          when 0
-            @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Both players have the same amount of cells--it's a tie! <a href='/start'>PLAY AGAIN</a></h1>"
-          end
+        winner = @@game.cell_majority_holder
+        case winner
+        when 1
+          @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 1 wins! <a href='/start'>PLAY AGAIN</a></h1>"
+        when 2
+          @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 2 wins! <a href='/start'>PLAY AGAIN</a></h1>"
+        when 0
+          @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Both players have the same amount of cells--it's a tie! <a href='/start'>PLAY AGAIN</a></h1>"
         end
       end
       

@@ -20,6 +20,7 @@ class World
     end
   end
 
+
   def populate
     size_x.times do |x|
       @graph << []

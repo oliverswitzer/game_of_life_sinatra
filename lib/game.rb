@@ -9,6 +9,7 @@ class Game
   def initialize size_x=20, size_y=20
     @world = World.new(size_x, size_y)
     @pause = false
+    @current_winner = nil
   end
   
   def print_world
@@ -21,6 +22,31 @@ class Game
           print " . "
         end
       end
+    end
+  end
+
+  def cell_majority_holder
+    p1_cells = []
+    p2_cells = []
+    @world.cells.each do |cell|   #count each players cells
+      if cell.ownership == 1 
+        p1_cells << cell
+      elsif cell.ownership == 2
+        p2_cells << cell
+      else
+        nil
+      end
+    end
+
+    p1_count = p1_cells.count
+    p2_count = p2_cells.count
+    case (p1_count <=> p2_count)
+    when 1
+      @current_winner = 1
+    when -1
+      @current_winner = 2
+    when 0
+      @current_winner = 0
     end
   end
 
