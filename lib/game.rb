@@ -4,14 +4,25 @@ require_relative 'world'
 
 class Game
 
-  attr_accessor :world, :viz_app, :pause
+  attr_accessor :world, :viz_app, :pause, :id, :player_one, :player_two
 
-  def initialize size_x=20, size_y=20
+  GAMES = []
+
+  def initialize size_x=20, size_y=20, id
+    @id = id
     @world = World.new(size_x, size_y)
     @pause = false
     @current_winner = nil
+    @player_one = false
+    @player_two = false
+
+    Game::GAMES << self
   end
-  
+
+  def self.search_game(id)
+    Game::GAMES.detect {|game| game.id == id}
+  end
+
   def print_world
     @world.graph.each do |x|
       puts

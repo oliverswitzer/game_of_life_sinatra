@@ -9,7 +9,7 @@
         function loadNext() {
           var hidden = $("#hidden").text();
           if (hidden !== "pause") {
-            $('#container').load('/window?randval='+ Math.random(), function() {            
+            $('#container').load('/window/<%=@id%>?randval='+ Math.random(), function() {            
                 setTimeout(loadNext, 100);
             });
           }
@@ -18,10 +18,10 @@
       });
     </script>
   </head>
-  <body>
+  <body style="background-color: black">
     <div id="container">
     	<a href="/start" style="position: absolute; right: 20px; top: 40px"><h4>Home</h4></a>
-      <a href="/pause" style="position: absolute; right: 20px; top: 70px"><h4>Pause</h4></a>
+      <!-- <a href="/pause" style="position: absolute; right: 20px; top: 70px"><h4>Pause</h4></a> -->
     	<h4 style="position: absolute; left: 20px; top: 40px">Tick Count: <%=@world.tick_count%></h4>
       <%=@game_over%>
     	<div id="container">

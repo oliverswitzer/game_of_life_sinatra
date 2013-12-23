@@ -1,5 +1,6 @@
 require 'bundler'
 Bundler.require
+require 'debugger'
 
 
 Dir.glob('./lib/*.rb') do |model|
@@ -10,36 +11,121 @@ end
 
 module Name
   class App < Sinatra::Application
-    @@game = Game.new(18, 30)
-    @@game.pause = false
+    # @@game = Game.new(18, 30)
+    # @@game.pause = false
     # @@game.randomly_populate
 
+    @@games = Game::GAMES
+
+
     get '/' do
-      @local_game = @@game
-      @world = @local_game.world
+      #will contain the form 
+
+      @id = "" 
+      5.times do 
+        @id << rand(1..9).to_s
+      end
+
+
+      @user_game = Game.new(18, 30, @id.to_i)
+
+      # @@game.world.apocalypse
+      # @@game.world.tick_count = 0
+      # @@game.pause = false
+      
+      @graph = @user_game.world.graph
+      erb :start
+    end
+
+    get "/start/:id" do 
+
+      @id = params[:id].to_i
+      @user_game = Game.search_game(@id)
+      
+      @graph = @user_game.world.graph
+
+      if @user_game.player_one == true
+        @existing_player = "Player 1"
+        @new_player = "Player 2"
+      elsif @user_game.player_two == true
+        @existing_player = "Player 2"
+        @new_player = "Player 1"
+      else
+        @existing_player = "Unselected"
+        @new_player = "either Player 1 or Player 2"
+      end
+
+      erb :start_existing
+    end
+
+    post '/play' do
+
+      @id = params["id"].to_i
+
+      @user_game = Game.search_game(@id)
+
+      if params["player"] == "1"
+        @user_game.player_one = true
+      elsif params["player"] == "2"
+        @user_game.player_two = true
+      else
+        nil
+      end
+
+      @world = @user_game.world
+
+      to_live = []
+      params.values.each do |str_coordinate|
+        if str_coordinate[0] == "["
+          str_array = str_coordinate.gsub("[","").gsub("]", "").split(",")
+          int_coord = str_array.collect { |coord| coord.to_i }
+          to_live << int_coord
+          puts ""
+        end
+      end
+
+      @user_game.world.cells.each do |cell|
+        if to_live.include?([cell.x, cell.y])
+          cell.alive = true
+          cell.ownership = params["player"].to_i
+          puts ""
+        end
+      end
+
+      erb :play
+    end
+
+    get '/game/:id' do
+      @id = params[:id].to_i
+      @user_game = Game.search_game(@id)
+
+      @world = @user_game.world
       @graph = @world.graph
       @game_over = ""
       erb :index
     end
 
-    get '/window' do
-      # puts @@game.pause
-      @@game.world.next_frame!
-      @local_game = @@game
-      @world = @local_game.world
+    get '/window/:id' do
+      debugger
+      @user_game = Game.search_game(params[:id].to_i)
+      @user_game.world.next_frame!
+
+      debugger
+
+      @world = @user_game.world
       @graph = @world.graph
       @game_over = ""
 
-      if @@game.static?
-        @@game.pause = true
+      if @user_game.static?
+        @user_game.pause = true
         @pause = "pause"
         @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Game over: your cells have settled in for the long run! <a href='/start'>PLAY AGAIN</a></h1>"
       end
 
       if @world.tick_count >= 100
-        @@game.pause = true
+        @user_game.pause = true
         @pause = "pause"
-        winner = @@game.cell_majority_holder
+        winner = @user_game.cell_majority_holder
         case winner
         when 1
           @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 1 wins! <a href='/start'>PLAY AGAIN</a></h1>"
@@ -53,7 +139,23 @@ module Name
       erb :window
     end
 
+
+
+
     helpers do
+
+
+      def disable_radio?(existing_player, radio_value)
+        if @existing_player == "Player 1" && radio_value == "1"
+          "disabled"
+        elsif @existing_player == "Player 2" && radio_value == "2"
+          "disabled"
+        else
+          ""
+        end 
+
+      end
+
       def color_cell(cell)
         if cell.alive?
           
@@ -125,49 +227,10 @@ module Name
       end
     end
 
-
-    get '/start' do
-      #will contain the form 
-      @world = @@game.world
-
-      @@game.world.apocalypse
-      @@game.world.tick_count = 0
-      @@game.pause = false
-      
-      @graph = @world.graph
-      erb :start
-    end
-
-    post '/play' do
-      #will be passed the params to tell which cells are to be started
-      # "[6, 14]"
-
-      to_live = []
-      params.values.each do |str_coordinate|
-        if str_coordinate[0] == "["
-          str_array = str_coordinate.gsub("[","").gsub("]", "").split(",")
-          int_coord = str_array.collect { |coord| coord.to_i }
-          to_live << int_coord
-          puts ""
-        end
-      end
-
-      @@game.world.cells.each do |cell|
-        if to_live.include?([cell.x, cell.y])
-          cell.alive = true
-          cell.ownership = params["player"].to_i
-          puts ""
-        end
-      end
-
-
-      erb :play
-    end
-
-    get '/pause' do
-      @@game.pause = true
-      @current_tick = @@game.world.tick_count
-    end
+    # get '/pause' do
+    #   @@game.pause = true
+    #   @current_tick = @@game.world.tick_count
+    # end
 
 
     #helpers
