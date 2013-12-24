@@ -1,11 +1,17 @@
+<html lang="en">
+	<head>
+		<link href="/css/stylesheet.css" type="text/css" rel="stylesheet"/>
+		<title>Battle of Life</title>
+	</head>
+	<body>
+		<h1>Your currently playing against <span><%=@user_game.creator%></span></h1>
 
+		<h2>Here we go...</h2>
+		<img src="/img/start_page_images/<%=random_gif%>"/>
 
-<h1>Your currently playing against <span><%=@user_game.creator%></span></h1>
-
-<h2>Here we go...</h2>
-<img src="/img/start_page_images/<%=random_gif%>"/>
-
-<h2><span><%=@user_game.creator%></span> has already submitted his/her cells, so you're both ready to rumble.
-<br>
-<br>
-<a href="/game/<%=@id%>">PRESS HERE AT THE SAME TIME AS YOUR OPPONENT TO START!</a></h2> 
+		<h2><span><%=@user_game.creator%></span> has already submitted his/her cells, so you're both ready to rumble.
+		<br>
+		<br>
+		<a href="/game/<%=@id%>">PRESS HERE AT THE SAME TIME AS YOUR OPPONENT TO START!</a></h2> 
+	</body>
+</html>
