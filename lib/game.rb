@@ -36,6 +36,13 @@ class Game
     end
   end
 
+  def cell_count(player)
+    """ARG NEEDS TO BE EITHER 1 or 2"""
+    player_cells = @world.cells.select {|cell| cell.ownership == player.to_i && cell.alive? == true}
+
+    return player_cells.count
+  end
+
   def cell_majority_holder
     p1_cells = []
     p2_cells = []

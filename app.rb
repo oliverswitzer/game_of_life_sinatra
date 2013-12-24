@@ -116,7 +116,12 @@ module Name
       if @user_game.static?
         @user_game.pause = true
         @pause = "pause"
-        @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Game over: your cells have settled in for the long run! <a href='/start'>PLAY AGAIN</a></h1>"
+        winner = @user_game.cell_majority_holder
+        if winner == 0 
+          @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>What a massacre. Everyone's cells are dead so nobody wins!"
+        else
+          @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>All cells have settled in for the long run! Player #{winner} wins with #{@user_game.cell_count(winner)} cells! <a href='/start'>PLAY AGAIN</a></h1>"
+        end
       end
 
       if @world.tick_count >= 100
@@ -125,9 +130,9 @@ module Name
         winner = @user_game.cell_majority_holder
         case winner
         when 1
-          @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 1 wins! <a href='/start'>PLAY AGAIN</a></h1>"
+          @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 1 wins with #{@user_game.cell_count(winner)} cells! <a href='/start'>PLAY AGAIN</a></h1>"
         when 2
-          @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 2 wins! <a href='/start'>PLAY AGAIN</a></h1>"
+          @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 2 wins with #{@user_game.cell_count(winner)} cells! <a href='/start'>PLAY AGAIN</a></h1>"
         when 0
           @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Both players have the same amount of cells--it's a tie! <a href='/start'>PLAY AGAIN</a></h1>"
         end

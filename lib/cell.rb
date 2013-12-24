@@ -5,7 +5,7 @@ class Cell
 
   attr_accessor :x, :y, :world, :alive, :ownership, :future_ownership
 
-  def initialize(world, x=0,y=0, ownership=0)
+  def initialize(world, x=0,y=0, ownership=nil)
     @future_ownership = nil
     @x = x
     @y = y
