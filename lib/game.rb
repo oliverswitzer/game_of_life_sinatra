@@ -24,6 +24,23 @@ class Game
     Game::GAMES.detect {|game| game.id == id}
   end
 
+  def check_winner
+
+    """ Will return the players number that has won if no more cells exist for opponent. Will
+    return false if there isnt a winner yet """
+
+    player1_cellcheck = @world.cells.detect {|cell| cell.ownership == 1}
+    player2_cellcheck = @world.cells.detect {|cell| cell.ownership == 2}
+
+    if player1_cellcheck.nil?
+      2
+    elsif player2_cellcheck.nil?
+      1
+    else
+      false
+    end
+  end
+
   def print_world
     @world.graph.each do |x|
       puts

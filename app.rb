@@ -1,5 +1,6 @@
 require 'bundler'
 Bundler.require
+require 'debugger'
 
 
 Dir.glob('./lib/*.rb') do |model|
@@ -112,11 +113,25 @@ module Name
 
     get '/window/:id' do
       @user_game = Game.search_game(params[:id].to_i)
+      
       @user_game.world.next_frame!
-
+      
       @world = @user_game.world
       @graph = @world.graph
       @game_over = ""
+
+      
+      if @user_game.check_winner != false
+        @user_game.pause = true
+        @pause = "pause"
+        winner = @user_game.cell_majority_holder
+
+        if @user_game.check_winner == 1
+          @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 1 has won before 100 generations with #{@user_game.cell_count(winner)} cells! <a href='/'>PLAY AGAIN</a></h1>"
+        elsif @user_game.check_winner == 2
+          @game_over = "<h1 style='position: absolute; left: 20px; top: 70px'>Player 2 has won before 100 generations with #{@user_game.cell_count(winner)} cells! <a href='/'>PLAY AGAIN</a></h1>"
+        end
+      end
 
       if @user_game.static?
         @user_game.pause = true

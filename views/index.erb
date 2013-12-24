@@ -19,10 +19,14 @@
     </script>
   </head>
   <body style="background-color: black">
+
+      <h3 style="position: absolute; right: 140px; top: 35px; opacity: 0.4">Player 1</h3>
+      <div class="cell_key_red" style="position: absolute; right: 70px; top: 45px; opacity: 0.4"></div>
+      <h3 style="position: absolute; right: 140px; top: 80px; opacity: 0.4">Player 2</h3>
+      <div class="cell_key_blue" style="position: absolute; right: 70px; top: 90px; opacity: 0.4"></div>
+
     <div id="container">
-    	<a href="/start" style="position: absolute; right: 20px; top: 40px"><h4>Home</h4></a>
-      <!-- <a href="/pause" style="position: absolute; right: 20px; top: 70px"><h4>Pause</h4></a> -->
-    	<h4 style="position: absolute; left: 20px; top: 40px">Tick Count: <%=@world.tick_count%></h4>
+    	<h4 style="position: absolute; left: 20px; top: 40px">Generation: <%=@world.tick_count%></h4>
       <%=@game_over%>
     	<div id="container">
     	<%@graph.each do |x|%>
