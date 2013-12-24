@@ -1,6 +1,6 @@
 require 'bundler'
 Bundler.require
-require 'debugger'
+
 
 
 Dir.glob('./lib/*.rb') do |model|
