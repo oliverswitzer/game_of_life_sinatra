@@ -22,7 +22,7 @@ module Name
       #will contain the form 
 
       @id = "" 
-      5.times do 
+      8.times do 
         @id << rand(1..9).to_s
       end
 
@@ -106,11 +106,8 @@ module Name
     end
 
     get '/window/:id' do
-      debugger
       @user_game = Game.search_game(params[:id].to_i)
       @user_game.world.next_frame!
-
-      debugger
 
       @world = @user_game.world
       @graph = @world.graph
@@ -157,8 +154,8 @@ module Name
       end
 
       def color_cell(cell)
-        if cell.alive?
           
+        if cell.alive?
           if cell.ownership == 1
             red_gradient
           elsif cell.ownership == 2
