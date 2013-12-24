@@ -1,7 +1,9 @@
 
-<a href="/game/<%=@id%>"><h1>PRESS HERE TO START!</h1></a>
 
-<!-- FOR DEBUGGING -->
-<h1><%=@user_game.id%></h1>	
+<h1>Your game ID is <%=@user_game.id%>. To play with someone else, send them to <a href="/start/<%=@id%>">battle-of-life.herokuapp.com/start/<%=@user_game.id%></a></h1>
 
-<a href="/start/<%=@user_game.id%>" target="_blank">Start</a>
+<h2>Here we go...</h2>
+<img src="/img/start_page_images/<%=random_gif%>"/>
+
+
+<h2>Once they've submitted their cells, <a href="/game/<%=@id%>">PRESS HERE AT THE SAME TIME TO START!</h2></a>
