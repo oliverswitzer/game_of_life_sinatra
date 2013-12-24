@@ -4,11 +4,12 @@ require_relative 'world'
 
 class Game
 
-  attr_accessor :world, :viz_app, :pause, :id, :player_one, :player_two
+  attr_accessor :world, :viz_app, :pause, :id, :player_one, :player_two, :creator
 
   GAMES = []
 
   def initialize size_x=20, size_y=20, id
+    @creator
     @id = id
     @world = World.new(size_x, size_y)
     @pause = false

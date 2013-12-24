@@ -40,6 +40,7 @@ module Name
 
       @id = params[:id].to_i
       @user_game = Game.search_game(@id)
+      @game_creator = @user_game.creator
       
       @graph = @user_game.world.graph
 
@@ -91,7 +92,12 @@ module Name
         end
       end
 
-      erb :play
+      if @user_game.creator.nil?
+        @user_game.creator = params["username"]
+        erb :play
+      else
+        erb :play_existing
+      end
     end
 
     get '/game/:id' do
@@ -161,7 +167,7 @@ module Name
         elsif @existing_player == "Player 2" && radio_value == "2"
           "disabled"
         else
-          ""
+          "checked"
         end 
 
       end
